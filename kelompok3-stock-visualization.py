@@ -19,7 +19,7 @@ Original file is located at
 
 from bokeh.plotting import figure, show
 from bokeh.io import output_file, output_notebook, curdoc
-from bokeh.models import ColumnDataSource, HoverTool, Select, DatePicker
+from bokeh.models import ColumnDataSource, HoverTool, Select, DateRangeSlider
 from bokeh.models.widgets import Tabs, Panel
 from bokeh.layouts import row, widgetbox
 from datetime import datetime
@@ -57,18 +57,21 @@ select2 = Select(
     value=option[1]
 )
 
-# Add Date Picker
-dateValue = "2018-01-02"
-date_picker = DatePicker(title='Select date', value=dateValue, min_date="2018-01-02", max_date="2021-09-10")
+# Add Years Range
+date_range_slider = DateRangeSlider(value=(datetime(2018, 1, 2), datetime(2021, 9, 10)),
+                                    start=datetime(2018, 1, 1), end=datetime(2021, 9, 10))
+
+isoDateStart = datetime.isoformat(date_range_slider.value_as_date[0])
+isoDateEnd = datetime.isoformat(date_range_slider.value_as_date[1])
+
 
 """**Plotting Stock by Volume**"""
 
 data_stock['Date'] = pd.to_datetime(data_stock['Date'])
-dateObj = datetime.strptime(dateValue, '%Y-%m-%d')
 
 #new variable for data
-stocks1 = data_stock[(data_stock['Name'] == option[0]) & (data_stock['Date'] == dateObj)]
-stocks2 = data_stock[(data_stock['Name'] == option[1]) & (data_stock['Date'] == dateObj)]
+stocks1 = data_stock[(data_stock['Name'] == option[0]) & ((data_stock['Date'] >= isoDateStart) & (data_stock['Date'] <= isoDateEnd))]
+stocks2 = data_stock[(data_stock['Name'] == option[1]) & ((data_stock['Date'] >= isoDateStart) & (data_stock['Date'] <= isoDateEnd))]
 
 #column data for stock
 data1 = ColumnDataSource(stocks1)
@@ -92,12 +95,11 @@ plot.add_tools(HoverTool(tooltips=[("Stock Name", "@Name"),("Volume", "@Volume")
 def update_plot(attr, old, new):
     stock1 = select1.value
     stock2 = select2.value
-    dateValue = date_picker.value
+    isoDateStart = datetime.isoformat(date_range_slider.value_as_date[0])
+    isoDateEnd = datetime.isoformat(date_range_slider.value_as_date[1])
 
-    dateObj = datetime.strptime(dateValue, '%Y-%m-%d')
-
-    stocks1 = data_stock[(data_stock['Name'] == stock1) & (data_stock['Date'] == dateObj)]
-    stocks2 = data_stock[(data_stock['Name'] == stock2) & (data_stock['Date'] == dateObj)]
+    stocks1 = data_stock[(data_stock['Name'] == stock1) & ((data_stock['Date'] >= isoDateStart) & (data_stock['Date'] <= isoDateEnd))]
+    stocks2 = data_stock[(data_stock['Name'] == stock2) & ((data_stock['Date'] >= isoDateStart) & (data_stock['Date'] <= isoDateEnd))]
 
     data1.data = stocks1
     data2.data = stocks2
@@ -107,10 +109,11 @@ def update_plot(attr, old, new):
 # if stock selected
 select1.on_change('value', update_plot)
 select2.on_change('value', update_plot)
+date_range_slider.on_change('value', update_plot)
 
 """**Set layout, panel, and tabs**"""
 
 # make layout with widget
-layout1 = row(widgetbox(select1, select2, date_picker), plot)
+layout1 = row(widgetbox(select1, select2, date_range_slider), plot)
 
 curdoc().add_root(layout1)
