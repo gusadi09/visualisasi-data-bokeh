@@ -76,8 +76,8 @@ plot = figure(x_axis_type='datetime', x_axis_label='Date', y_axis_label='Volume'
 plot.grid.grid_line_alpha=0.3
 
 #plot volume and date
-plot.line(x='Date', y='Volume', source=data1, color='#A6CEE3', legend_label=stock1)
-plot.line(x='Date', y='Volume', source=data2, color='#FB9A99', legend_label=stock2)
+plot.line(x='Date', y='Volume', source=data1, color='#A6CEE3', legend_label=self.stock1)
+plot.line(x='Date', y='Volume', source=data2, color='#FB9A99', legend_label=self.stock2)
 
 plot.legend.location = "top_left"
 
@@ -87,11 +87,11 @@ plot.add_tools(HoverTool(tooltips=[("Stock Name", "@Name"),("Volume", "@Volume")
 """**Update Function**"""
 
 def update_plot(attr, old, new):
-    stock1 = select1.value
-    stock2 = select2.value
+    self.stock1 = select1.value
+    self.stock2 = select2.value
 
-    stocks1 = data_stock[data_stock['Name'] == stock1]
-    stocks2 = data_stock[data_stock['Name'] == stock2]
+    stocks1 = data_stock[data_stock['Name'] == self.stock1]
+    stocks2 = data_stock[data_stock['Name'] == self.stock2]
 
     data1.data = stocks1
     data2.data = stocks2
