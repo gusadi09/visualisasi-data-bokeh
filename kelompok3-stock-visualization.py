@@ -103,8 +103,8 @@ def update_plot(attr, old, new):
     new_data1 = ColumnDataSource(stocks1)
     new_data2 = ColumnDataSource(stocks2) 
 
-    data1.data = new_data1
-    data2.data = new_data2
+    data1 = new_data1
+    data2 = new_data2
 
 """**Mengatur Select**"""
 
