@@ -22,7 +22,7 @@ from bokeh.io import output_file, output_notebook, curdoc
 from bokeh.models import ColumnDataSource, HoverTool, Select, DateRangeSlider
 from bokeh.models.widgets import Tabs, Panel
 from bokeh.layouts import row, widgetbox
-from datetime import datetime
+from datetime import date
 
 import pandas as pd
 
@@ -58,11 +58,11 @@ select2 = Select(
 )
 
 # Add Years Range
-date_range_slider = DateRangeSlider(value=(datetime(2018, 1, 2), datetime(2021, 9, 10)),
-                                    start=datetime(2018, 1, 1), end=datetime(2021, 9, 10))
+date_range_slider = DateRangeSlider(value=(date(2018, 1, 2), date(2021, 9, 10)),
+                                    start=date(2018, 1, 1), end=date(2021, 9, 10))
 
-isoDateStart = datetime.isoformat(date_range_slider.value_as_date[0])
-isoDateEnd = datetime.isoformat(date_range_slider.value_as_date[1])
+isoDateStart = date.isoformat(date_range_slider.value_as_date[0])
+isoDateEnd = date.isoformat(date_range_slider.value_as_date[1])
 
 
 """**Plotting Stock by Volume**"""
@@ -95,8 +95,8 @@ plot.add_tools(HoverTool(tooltips=[("Stock Name", "@Name"),("Volume", "@Volume")
 def update_plot(attr, old, new):
     stock1 = select1.value
     stock2 = select2.value
-    isoDateStart = datetime.isoformat(date_range_slider.value_as_date[0])
-    isoDateEnd = datetime.isoformat(date_range_slider.value_as_date[1])
+    isoDateStart = date.isoformat(date_range_slider.value_as_date[0])
+    isoDateEnd = date.isoformat(date_range_slider.value_as_date[1])
 
     stocks1 = data_stock[(data_stock['Name'] == stock1) & ((data_stock['Date'] >= isoDateStart) & (data_stock['Date'] <= isoDateEnd))]
     stocks2 = data_stock[(data_stock['Name'] == stock2) & ((data_stock['Date'] >= isoDateStart) & (data_stock['Date'] <= isoDateEnd))]
