@@ -69,12 +69,12 @@ data1 = ColumnDataSource(stocks1)
 data2 = ColumnDataSource(stocks2)
 
 #plot data
-plot = figure(x_axis_type='datetime', x_axis_label='Date', y_axis_label='Volume', title='Stock Volume', plot_height=400, plot_width=800)
+plot = figure(x_axis_type='datetime', x_axis_label='Date', y_axis_label='Volume', title='Stock Volume', plot_height=500, plot_width=1000)
 plot.grid.grid_line_alpha=0.3
 
 #plot volume and date
-plot.line(x='Date', y='Volume', source=data1, color='#A6CEE3', legend_label='stock1')
-plot.line(x='Date', y='Volume', source=data2, color='#FB9A99', legend_label='stock2')
+plot.line(x='Date', y='Volume', source=data1, color='#A6CEE3', legend_label='Stock1')
+plot.line(x='Date', y='Volume', source=data2, color='#FB9A99', legend_label='Stock2')
 
 plot.legend.location = "top_left"
 
