@@ -27,7 +27,7 @@ import pandas as pd
 
 """**Load data from excel**"""
 
-data = pd.read_excel("nasdaqStock.xlsx")
+data = pd.read_excel("nasdaqStock_new.xlsx")
 
 data.drop(columns=['Open', 'High', 'Low', 'Close'], inplace=True)
 
