@@ -107,10 +107,4 @@ select2.on_change('value', update_plot)
 # make layout with widget
 layout1 = row(widgetbox(select1, select2,), plot)
 
-# make panel
-line_panel = Panel(child=layout1, title='Line Vizualization')
-
-# union panel to be tab
-tabs = Tabs(tabs=[line_panel])
-
-curdoc().add_root(tabs)
+curdoc().add_root(layout1)
