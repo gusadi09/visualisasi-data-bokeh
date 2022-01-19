@@ -67,8 +67,8 @@ data_stock['Date'] = pd.to_datetime(data_stock['Date'])
 dateObj = datetime.strptime(dateValue, '%Y-%m-%d')
 
 #new variable for data
-stocks1 = data_stock[data_stock['Name'] == option[0] and data_stock['Date'] == dateObj]
-stocks2 = data_stock[data_stock['Name'] == option[1] and data_stock['Date'] == dateObj]
+stocks1 = data_stock[data_stock['Name'] == option[0] & data_stock['Date'] == dateObj]
+stocks2 = data_stock[data_stock['Name'] == option[1] & data_stock['Date'] == dateObj]
 
 #column data for stock
 data1 = ColumnDataSource(stocks1)
@@ -96,8 +96,8 @@ def update_plot(attr, old, new):
 
     dateObj = datetime.strptime(dateValue, '%Y-%m-%d')
 
-    stocks1 = data_stock[data_stock['Name'] == stock1 and data_stock['Date'] == dateObj]
-    stocks2 = data_stock[data_stock['Name'] == stock2 and data_stock['Date'] == dateObj]
+    stocks1 = data_stock[data_stock['Name'] == stock1 & data_stock['Date'] == dateObj]
+    stocks2 = data_stock[data_stock['Name'] == stock2 & data_stock['Date'] == dateObj]
 
     data1.data = stocks1
     data2.data = stocks2
