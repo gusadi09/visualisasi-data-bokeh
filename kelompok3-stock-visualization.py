@@ -90,11 +90,11 @@ def update_plot(attr, old, new):
     stock1 = select1.value
     stock2 = select2.value
 
-    new_stocks1 = data_stock[data_stock['Name'] == stock1]
-    new_stocks2 = data_stock[data_stock['Name'] == stock2]
+    stocks1 = data_stock[data_stock['Name'] == stock1]
+    stocks2 = data_stock[data_stock['Name'] == stock2]
 
-    data1.data = new_stocks1
-    data2.data = new_stocks2
+    data1.data = stocks1
+    data2.data = stocks2
 
 """**Mengatur Select**"""
 
