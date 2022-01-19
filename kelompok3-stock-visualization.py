@@ -22,6 +22,7 @@ from bokeh.io import output_file, output_notebook, curdoc
 from bokeh.models import ColumnDataSource, HoverTool, Select, DatePicker
 from bokeh.models.widgets import Tabs, Panel
 from bokeh.layouts import row, widgetbox
+from datetime import datetime
 
 import pandas as pd
 
@@ -63,10 +64,11 @@ date_picker = DatePicker(title='Select date', value=dateValue, min_date="2018-01
 """**Plotting Stock by Volume**"""
 
 data_stock['Date'] = pd.to_datetime(data_stock['Date'])
+dateObj = datetime.strptime(dateValue, '%Y-%m-%d')
 
 #new variable for data
-stocks1 = data_stock[data_stock['Name'] == option[0] and data_stock['Date'] == dateValue]
-stocks2 = data_stock[data_stock['Name'] == option[1] and data_stock['Date'] == dateValue]
+stocks1 = data_stock[data_stock['Name'] == option[0] and data_stock['Date'] == dateObj]
+stocks2 = data_stock[data_stock['Name'] == option[1] and data_stock['Date'] == dateObj]
 
 #column data for stock
 data1 = ColumnDataSource(stocks1)
@@ -92,8 +94,10 @@ def update_plot(attr, old, new):
     stock2 = select2.value
     dateValue = date_picker.value
 
-    stocks1 = data_stock[data_stock['Name'] == stock1 and data_stock['Date'] == dateValue]
-    stocks2 = data_stock[data_stock['Name'] == stock2 and data_stock['Date'] == dateValue]
+    dateObj = datetime.strptime(dateValue, '%Y-%m-%d')
+
+    stocks1 = data_stock[data_stock['Name'] == stock1 and data_stock['Date'] == dateObj]
+    stocks2 = data_stock[data_stock['Name'] == stock2 and data_stock['Date'] == dateObj]
 
     data1.data = stocks1
     data2.data = stocks2
