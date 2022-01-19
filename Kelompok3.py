@@ -48,7 +48,7 @@ output_notebook()
 
 #membuat variabel baru untuk menampung setiap indeks saham
 stocks1 = data_stock[data_stock['Name'] == 'AAPL']
-stocks2 = data_stock[data_stock['Name'] == 'ZM']
+stocks2 = data_stock[data_stock['Name'] == 'ADBE']
 
 #membuat column data source untuk setiap index saham
 data1 = ColumnDataSource(stocks1)
@@ -79,8 +79,8 @@ def update_plot(attr, old, new):
     new_data1 = ColumnDataSource(new_stocks1)
     new_data2 = ColumnDataSource(new_stocks2) 
 
-    source1.data = new_data1
-    source2.data = new_data2
+    data1.data = new_data1
+    data2.data = new_data2
 
 """**Mengatur Select**"""
 
