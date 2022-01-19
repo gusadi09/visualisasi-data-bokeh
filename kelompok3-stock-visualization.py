@@ -40,16 +40,11 @@ data_stock.info()
 
 data.index = data.index.map(str)
 
-"""**Plotting Stock by Volume**"""
-
-data_stock['Date'] = pd.to_datetime(data_stock['Date'])
-
-output_notebook()
-
-"""**Mengatur Select**"""
+"""**Set Select Option**"""
 
 # Select sorted by stock name
 option = data_stock['Name'].drop_duplicates()
+
 option = list(option.map(str))
 
 # Select 1 for stock 1
@@ -69,9 +64,15 @@ select2 = Select(
 stock1 = select1.value
 stock2 = select2.value
 
+"""**Plotting Stock by Volume**"""
+
+data_stock['Date'] = pd.to_datetime(data_stock['Date'])
+
+output_notebook()
+
 #membuat variabel baru untuk menampung setiap indeks saham
-stocks1 = data_stock[data_stock['Name'] == stock1]
-stocks2 = data_stock[data_stock['Name'] == stock2]
+stocks1 = data_stock[data_stock['Name'] == select1]
+stocks2 = data_stock[data_stock['Name'] == select2]
 
 #membuat column data source untuk setiap index saham
 data1 = ColumnDataSource(stocks1)
@@ -99,17 +100,19 @@ def update_plot(attr, old, new):
     stocks1 = data_stock[data_stock['Name'] == stock1]
     stocks2 = data_stock[data_stock['Name'] == stock2]
 
-    new_data1 = ColumnDataSource(stocks1)
-    new_data2 = ColumnDataSource(stocks2) 
+    new_data1 = ColumnDataSource(new_stocks1)
+    new_data2 = ColumnDataSource(new_stocks2) 
 
     data1.data = new_data1
     data2.data = new_data2
+
+"""**Mengatur Select**"""
 
 # if stock selected
 select1.on_change('value', update_plot)
 select2.on_change('value', update_plot)
 
-"""Mengatur Layout, Panel, dan Tabs"""
+"""**Set layout, panel, and tabs**"""
 
 # make layout with widget
 layout1 = row(widgetbox(select1, select2,), plot)
