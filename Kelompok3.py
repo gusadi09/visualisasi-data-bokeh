@@ -46,9 +46,32 @@ data_stock['Date'] = pd.to_datetime(data_stock['Date'])
 
 output_notebook()
 
+"""**Mengatur Select**"""
+
+# Select sorted by stock name
+option = data_stock['Name'].drop_duplicates()
+option = list(option.map(str))
+
+# Select 1 for stock 1
+select1 = Select(
+    options=option,
+    title='Select stock 1',
+    value=option[0]
+)
+
+# Select 2 for stock 2
+select2 = Select(
+    options=option,
+    title='Select stock 2',
+    value=option[1]
+)
+
+stock1 = select1.value
+stock2 = select2.value
+
 #membuat variabel baru untuk menampung setiap indeks saham
-stocks1 = data_stock[data_stock['Name'] == 'AAPL']
-stocks2 = data_stock[data_stock['Name'] == 'ADBE']
+stocks1 = data_stock[data_stock['Name'] == stock1]
+stocks2 = data_stock[data_stock['Name'] == stock2]
 
 #membuat column data source untuk setiap index saham
 data1 = ColumnDataSource(stocks1)
@@ -73,34 +96,14 @@ def update_plot(attr, old, new):
     stock1 = select1.value
     stock2 = select2.value
 
-    new_stocks1 = data_stock[data_stock['Name'] == stock1]
-    new_stocks2 = data_stock[data_stock['Name'] == stock2]
+    stocks1 = data_stock[data_stock['Name'] == stock1]
+    stocks2 = data_stock[data_stock['Name'] == stock2]
 
-    new_data1 = ColumnDataSource(new_stocks1)
-    new_data2 = ColumnDataSource(new_stocks2) 
+    new_data1 = ColumnDataSource(stocks1)
+    new_data2 = ColumnDataSource(stocks2) 
 
     data1.data = new_data1
     data2.data = new_data2
-
-"""**Mengatur Select**"""
-
-# Select sorted by stock name
-option = data_stock['Name'].drop_duplicates()
-option = list(option.map(str))
-
-# Select 1 for stock 1
-select1 = Select(
-    options=option,
-    title='Select stock 1',
-    value=option[0]
-)
-
-# Select 2 for stock 2
-select2 = Select(
-    options=option,
-    title='Select stock 2',
-    value=option[1]
-)
 
 # if stock selected
 select1.on_change('value', update_plot)
