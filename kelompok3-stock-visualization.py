@@ -72,7 +72,7 @@ data1 = ColumnDataSource(stocks1)
 data2 = ColumnDataSource(stocks2)
 
 #plot data
-plot = figure(x_axis_type='datetime', x_axis_label='Date', y_axis_label='Volume', title='Stock Volume', plot_height=600, plot_width=1200)
+plot = figure(x_axis_type='datetime', x_axis_label='Date', y_axis_label='Volume', title='Stock Volume', plot_height=400, plot_width=800)
 plot.grid.grid_line_alpha=0.3
 
 #plot volume and date
