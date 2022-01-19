@@ -80,10 +80,13 @@ data2 = ColumnDataSource(stocks2)
 
 #membuat plot figure untuk adj close
 plot = figure(x_axis_type='datetime', x_axis_label='Date', y_axis_label='Volume', title='Stock Volume', plot_height=600, plot_width=1200)
+plot.grid.grid_line_alpha=0.3
 
 #plot adj close untuk setiap indeks saham menggunakan line plot
-plot.line(x='Date', y='Volume', source=data1, color='red')
-plot.line(x='Date', y='Volume', source=data2, color='green')
+plot.line(x='Date', y='Volume', source=data1, color='#A6CEE3', legend_label=stock1)
+plot.line(x='Date', y='Volume', source=data2, color='#FB9A99', legend_label=stock2)
+
+plot.legend.location = "top_left"
 
 #menambahkan hover tool
 plot.add_tools(HoverTool(tooltips=[("Stock Name", "@Name"),("Volume", "@Volume"),]))
