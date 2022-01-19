@@ -86,7 +86,6 @@ def update_plot(attr, old, new):
 
 # Select sorted by stock name
 option = data_stock['Name'].drop_duplicates()
-
 option = list(option.map(str))
 
 # Select 1 for stock 1
