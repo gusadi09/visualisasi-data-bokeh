@@ -11,8 +11,8 @@ Original file is located at
 
 1.   Agus Adi Pranata (1301184292)
 2.   Pieter Edward (1301184479)
-3.   Anggota 3
-4.   Anggota 4
+3.   Muhammad Sabil Naufal Mas (1301184193)
+4.   Hauzan Jiyad Dhoifullah Komara (1301180212)
 
 **Import Library**
 """
