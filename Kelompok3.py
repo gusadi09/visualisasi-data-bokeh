@@ -85,20 +85,22 @@ def update_plot(attr, old, new):
 """**Mengatur Select**"""
 
 # Select sorted by stock name
-option = data_stock['Name']
+option = data_stock['Name'].drop_duplicates()
+
+option = list(option.map(str))
 
 # Select 1 for stock 1
 select1 = Select(
     options=option,
     title='Select stock 1',
-    value='AAPL'
+    value=option[0]
 )
 
 # Select 2 for stock 2
 select2 = Select(
     options=option,
     title='Select stock 2',
-    value='ZM'
+    value=option[1]
 )
 
 # if stock selected
