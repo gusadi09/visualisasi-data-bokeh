@@ -28,13 +28,10 @@ import pandas as pd
 """**Load data from excel**"""
 
 data = pd.read_excel("nasdaqStock.xlsx")
-data.head(5)
 
 data.drop(columns=['Open', 'High', 'Low', 'Close'], inplace=True)
 
 data_stock = data.rename(columns={"Adj Close": "Adj_Close"})
-
-data_stock.head(5)
 
 data_stock.info()
 
@@ -68,31 +65,26 @@ stock2 = select2.value
 
 data_stock['Date'] = pd.to_datetime(data_stock['Date'])
 
-output_notebook()
-
-#membuat variabel baru untuk menampung setiap indeks saham
+#new variable for data
 stocks1 = data_stock[data_stock['Name'] == stock1]
 stocks2 = data_stock[data_stock['Name'] == stock2]
 
-#membuat column data source untuk setiap index saham
+#column data for stock
 data1 = ColumnDataSource(stocks1)
 data2 = ColumnDataSource(stocks2)
 
-#membuat plot figure untuk adj close
+#plot data
 plot = figure(x_axis_type='datetime', x_axis_label='Date', y_axis_label='Volume', title='Stock Volume', plot_height=600, plot_width=1200)
 plot.grid.grid_line_alpha=0.3
 
-#plot adj close untuk setiap indeks saham menggunakan line plot
+#plot volume and date
 plot.line(x='Date', y='Volume', source=data1, color='#A6CEE3', legend_label=stock1)
 plot.line(x='Date', y='Volume', source=data2, color='#FB9A99', legend_label=stock2)
 
 plot.legend.location = "top_left"
 
-#menambahkan hover tool
+#add hover
 plot.add_tools(HoverTool(tooltips=[("Stock Name", "@Name"),("Volume", "@Volume"),]))
-
-#show plot
-show(plot)
 
 """**Update Function**"""
 
