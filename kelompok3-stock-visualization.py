@@ -56,16 +56,13 @@ select2 = Select(
     value=option[1]
 )
 
-stock1 = select1.value
-stock2 = select2.value
-
 """**Plotting Stock by Volume**"""
 
 data_stock['Date'] = pd.to_datetime(data_stock['Date'])
 
 #new variable for data
-stocks1 = data_stock[data_stock['Name'] == stock1]
-stocks2 = data_stock[data_stock['Name'] == stock2]
+stocks1 = data_stock[data_stock['Name'] == option[0]]
+stocks2 = data_stock[data_stock['Name'] == option[1]]
 
 #column data for stock
 data1 = ColumnDataSource(stocks1)
@@ -76,8 +73,8 @@ plot = figure(x_axis_type='datetime', x_axis_label='Date', y_axis_label='Volume'
 plot.grid.grid_line_alpha=0.3
 
 #plot volume and date
-plot.line(x='Date', y='Volume', source=data1, color='#A6CEE3', legend_label=stock1)
-plot.line(x='Date', y='Volume', source=data2, color='#FB9A99', legend_label=stock2)
+plot.line(x='Date', y='Volume', source=data1, color='#A6CEE3', legend_label='stock1')
+plot.line(x='Date', y='Volume', source=data2, color='#FB9A99', legend_label='stock2')
 
 plot.legend.location = "top_left"
 
