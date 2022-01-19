@@ -33,6 +33,8 @@ data.drop(columns=['Open', 'High', 'Low', 'Close'], inplace=True)
 
 data_stock = data.rename(columns={"Adj Close": "Adj_Close"})
 
+data_stock = data_stock.head(1000)
+
 data.index = data.index.map(str)
 
 """**Set Select Option**"""
@@ -87,11 +89,11 @@ plot.add_tools(HoverTool(tooltips=[("Stock Name", "@Name"),("Volume", "@Volume")
 """**Update Function**"""
 
 def update_plot(attr, old, new):
-    self.stock1 = select1.value
-    self.stock2 = select2.value
+    stock1 = select1.value
+    stock2 = select2.value
 
-    stocks1 = data_stock[data_stock['Name'] == self.stock1]
-    stocks2 = data_stock[data_stock['Name'] == self.stock2]
+    stocks1 = data_stock[data_stock['Name'] == stock1]
+    stocks2 = data_stock[data_stock['Name'] == stock2]
 
     data1.data = stocks1
     data2.data = stocks2
