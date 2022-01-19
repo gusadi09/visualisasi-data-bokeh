@@ -76,8 +76,8 @@ plot = figure(x_axis_type='datetime', x_axis_label='Date', y_axis_label='Volume'
 plot.grid.grid_line_alpha=0.3
 
 #plot volume and date
-plot.line(x='Date', y='Volume', source=data1, color='#A6CEE3', legend_label=self.stock1)
-plot.line(x='Date', y='Volume', source=data2, color='#FB9A99', legend_label=self.stock2)
+plot.line(x='Date', y='Volume', source=data1, color='#A6CEE3', legend_label=stock1)
+plot.line(x='Date', y='Volume', source=data2, color='#FB9A99', legend_label=stock2)
 
 plot.legend.location = "top_left"
 
