@@ -71,8 +71,8 @@ data_stock['Date'] = pd.to_datetime(data_stock['Date'])
 output_notebook()
 
 #membuat variabel baru untuk menampung setiap indeks saham
-stocks1 = data_stock[data_stock['Name'] == select1]
-stocks2 = data_stock[data_stock['Name'] == select2]
+stocks1 = data_stock[data_stock['Name'] == stock1]
+stocks2 = data_stock[data_stock['Name'] == stock2]
 
 #membuat column data source untuk setiap index saham
 data1 = ColumnDataSource(stocks1)
@@ -100,8 +100,8 @@ def update_plot(attr, old, new):
     stocks1 = data_stock[data_stock['Name'] == stock1]
     stocks2 = data_stock[data_stock['Name'] == stock2]
 
-    new_data1 = ColumnDataSource(new_stocks1)
-    new_data2 = ColumnDataSource(new_stocks2) 
+    new_data1 = ColumnDataSource(stocks1)
+    new_data2 = ColumnDataSource(stocks2) 
 
     data1.data = new_data1
     data2.data = new_data2
