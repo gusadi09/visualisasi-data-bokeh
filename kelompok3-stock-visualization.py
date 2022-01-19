@@ -33,8 +33,6 @@ data.drop(columns=['Open', 'High', 'Low', 'Close'], inplace=True)
 
 data_stock = data.rename(columns={"Adj Close": "Adj_Close"})
 
-data_stock.info()
-
 data.index = data.index.map(str)
 
 """**Set Select Option**"""
