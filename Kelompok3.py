@@ -85,8 +85,7 @@ def update_plot(attr, old, new):
 """**Mengatur Select**"""
 
 # Select sorted by stock name
-option = data.columns.to_list()
-del option[3]
+option = data_stock['Name']
 
 # Select 1 for stock 1
 select1 = Select(
