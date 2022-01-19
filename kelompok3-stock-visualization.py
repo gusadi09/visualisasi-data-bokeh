@@ -19,7 +19,7 @@ Original file is located at
 
 from bokeh.plotting import figure, show
 from bokeh.io import output_file, output_notebook, curdoc
-from bokeh.models import ColumnDataSource, HoverTool, Select
+from bokeh.models import ColumnDataSource, HoverTool, Select, DatePicker
 from bokeh.models.widgets import Tabs, Panel
 from bokeh.layouts import row, widgetbox
 
@@ -56,13 +56,17 @@ select2 = Select(
     value=option[1]
 )
 
+# Add Date Picker
+dateValue = "2018-01-02"
+date_picker = DatePicker(title='Select date', value=dateValue, min_date="2018-01-02", max_date="2021-09-10")
+
 """**Plotting Stock by Volume**"""
 
 data_stock['Date'] = pd.to_datetime(data_stock['Date'])
 
 #new variable for data
-stocks1 = data_stock[data_stock['Name'] == option[0]]
-stocks2 = data_stock[data_stock['Name'] == option[1]]
+stocks1 = data_stock[data_stock['Name'] == option[0] and data_stock['Date'] == dateValue]
+stocks2 = data_stock[data_stock['Name'] == option[1] and data_stock['Date'] == dateValue]
 
 #column data for stock
 data1 = ColumnDataSource(stocks1)
@@ -86,9 +90,10 @@ plot.add_tools(HoverTool(tooltips=[("Stock Name", "@Name"),("Volume", "@Volume")
 def update_plot(attr, old, new):
     stock1 = select1.value
     stock2 = select2.value
+    dateValue = date_picker.value
 
-    stocks1 = data_stock[data_stock['Name'] == stock1]
-    stocks2 = data_stock[data_stock['Name'] == stock2]
+    stocks1 = data_stock[data_stock['Name'] == stock1 and data_stock['Date'] == dateValue]
+    stocks2 = data_stock[data_stock['Name'] == stock2 and data_stock['Date'] == dateValue]
 
     data1.data = stocks1
     data2.data = stocks2
@@ -102,6 +107,6 @@ select2.on_change('value', update_plot)
 """**Set layout, panel, and tabs**"""
 
 # make layout with widget
-layout1 = row(widgetbox(select1, select2,), plot)
+layout1 = row(widgetbox(select1, select2, date_picker), plot)
 
 curdoc().add_root(layout1)
